@@ -1,0 +1,42 @@
+.container {
+  border-radius: 20000px;
+  background-color: rgb(250, 192, 192);
+  position: relative;
+  left: 55%;
+  top: -50vh;
+  height: 200vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 1.2s ease-in-out;
+}
+
+.cog {
+  position: absolute;
+  top: 50%;
+  height: 130vh;
+  transform: translateY(-50%);
+  transition: transform 0.8s ease-in-out;
+}
+
+.scroll {
+  position: absolute;
+  opacity: 50%;
+  left: 71%;
+  top: 50%;
+  height: 7vh;
+  transform: translateY(-50%);
+  transition: transform 2.8s ease-in;
+}
+
+.scroll.slideOut {
+  transform: translateY(100vw);
+}
+.container.slideOut {
+  transform: translateX(100vw) translateY(-100vh);
+}
+
+.toggleButton:hover {
+  background-color: #555;
+}
