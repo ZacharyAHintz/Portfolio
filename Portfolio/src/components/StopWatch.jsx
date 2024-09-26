@@ -6,10 +6,12 @@ export default function StopWatch() {
   const [rotation, setRotation] = useState(180);
   const [isExpanded, setIsExpanded] = useState(false);
   const myEvent = new Event("click");
-  const canRotateRef = useRef(true); // Ref to manage rotation state
-  const rotationTimeoutRef = useRef(null); // Ref to hold the timeout ID
+  const canRotateRef = useRef(true);
+  const rotationTimeoutRef = useRef(null);
 
   const toggleExpand = () => {
+    if (rotation % 360 !== 180) return;
+
     const newState = !isExpanded;
     setIsExpanded(newState);
     document.dispatchEvent(myEvent);
@@ -18,11 +20,9 @@ export default function StopWatch() {
   const handleWheel = (event) => {
     if (canRotateRef.current) {
       canRotateRef.current = false;
-      console.log("Can Rotate:", canRotateRef.current);
 
       setRotation((prevRotation) => {
-        const newRotation =
-          event.deltaY < 0 ? prevRotation + 72 : prevRotation - 72;
+        const newRotation = prevRotation + (event.deltaY < 0 ? 72 : -72);
         return newRotation;
       });
 
@@ -42,6 +42,12 @@ export default function StopWatch() {
     };
   }, []);
 
+  useEffect(() => {
+    if (rotation % 360 === 180) {
+      canRotateRef.current = true;
+    }
+  }, [rotation]);
+
   return (
     <div
       className={`${styles.stopwatchContainer} ${
@@ -52,7 +58,11 @@ export default function StopWatch() {
         transition: "transform 0.8s ease-in-out",
       }}
     >
-      <button className={styles.stopwatchButton} onClick={toggleExpand}>
+      <button
+        className={styles.stopwatchButton}
+        onClick={toggleExpand}
+        disabled={rotation % 360 !== 180}
+      >
         <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
       </button>
     </div>
