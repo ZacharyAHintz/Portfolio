@@ -1,7 +1,7 @@
 .stopwatchContainer {
   position: absolute;
-  right: 30%;
-  top: 50%;
+  right: 0%;
+  top: 38%;
   width: 40vh;
   height: 25vh;
   transform: translateY(-50%);
@@ -11,7 +11,6 @@
   border: 3px solid rgb(82, 82, 82);
   border-radius: 10px;
   box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2);
-  /* Transition now applies to both translation and rotation */
   transition: transform 0.8s ease-in-out;
 }
 

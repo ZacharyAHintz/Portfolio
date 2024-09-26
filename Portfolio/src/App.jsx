@@ -8,7 +8,6 @@ function App() {
 
   return (
     <>
-      s
       <LandingPage rotation={rotation} setRotation={setRotation} />
       <Projects rotation={rotation} />
     </>

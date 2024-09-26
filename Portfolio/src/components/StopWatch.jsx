@@ -48,10 +48,7 @@ export default function StopWatch() {
     }
   }, [rotation]);
 
-  const buttonStyle = {
-    opacity: rotation % 360 === 180 ? 1 : 0.5,
-    transition: "opacity 0.3s ease-in-out",
-  };
+  const opacity = rotation % 360 === 180 ? 1 : 0.5;
 
   return (
     <div
@@ -59,15 +56,19 @@ export default function StopWatch() {
         isExpanded ? styles.expanded : ""
       }`}
       style={{
-        transform: `rotate(${rotation}deg) translate(500px) rotate(-${rotation}deg)`,
-        transition: "transform 0.8s ease-in-out",
+        opacity,
+        transform: `rotate(${rotation}deg) translate(650px) rotate(-${rotation}deg)`,
+        transition: "transform 0.8s ease-in-out, opacity 0.3s ease-in-out",
       }}
     >
       <button
         className={styles.stopwatchButton}
         onClick={toggleExpand}
         disabled={rotation % 360 !== 180}
-        style={buttonStyle}
+        style={{
+          opacity,
+          transition: "opacity 0.3s ease-in-out",
+        }}
       >
         <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
       </button>
