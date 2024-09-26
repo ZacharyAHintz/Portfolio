@@ -48,6 +48,11 @@ export default function StopWatch() {
     }
   }, [rotation]);
 
+  const buttonStyle = {
+    opacity: rotation % 360 === 180 ? 1 : 0.5,
+    transition: "opacity 0.3s ease-in-out",
+  };
+
   return (
     <div
       className={`${styles.stopwatchContainer} ${
@@ -62,6 +67,7 @@ export default function StopWatch() {
         className={styles.stopwatchButton}
         onClick={toggleExpand}
         disabled={rotation % 360 !== 180}
+        style={buttonStyle}
       >
         <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
       </button>
