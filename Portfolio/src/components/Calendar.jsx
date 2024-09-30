@@ -9,6 +9,7 @@ export default function Calendar() {
   const [rotation, setRotation] = useState("up");
   const [isHidden, setIsHidden] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const openCalendar = new CustomEvent("calendarExpanded");
   const closeCalendar = new CustomEvent("closeCalendar");
@@ -23,6 +24,46 @@ export default function Calendar() {
       window.dispatchEvent(openCalendar);
     }
   };
+
+  useEffect(() => {
+    const handleProjectOpened = () => {
+      setIsHidden(true);
+      setIsButtonDisabled(true);
+      setOpen(true);
+    };
+
+    const handleProjectClosed = () => {
+      setIsHidden(false);
+      setIsButtonDisabled(false);
+      setOpen(false);
+    };
+
+    window.addEventListener("openTD", handleProjectOpened);
+    window.addEventListener("openCalc", handleProjectOpened);
+    window.addEventListener("openSR", handleProjectOpened);
+    window.addEventListener("openSW", handleProjectOpened);
+    window.addEventListener("openTD", handleProjectOpened);
+
+    window.addEventListener("closeTD", handleProjectClosed);
+    window.addEventListener("closeCalc", handleProjectClosed);
+    window.addEventListener("closeSR", handleProjectClosed);
+    window.addEventListener("closeSW", handleProjectClosed);
+    window.addEventListener("closeTD", handleProjectClosed);
+
+    return () => {
+      window.removeEventListener("openTD", handleProjectOpened);
+      window.removeEventListener("openCalc", handleProjectOpened);
+      window.removeEventListener("openSR", handleProjectOpened);
+      window.removeEventListener("openSW", handleProjectOpened);
+      window.removeEventListener("openTD", handleProjectOpened);
+
+      window.removeEventListener("closeTD", handleProjectClosed);
+      window.removeEventListener("closeCalc", handleProjectClosed);
+      window.removeEventListener("closeSR", handleProjectClosed);
+      window.removeEventListener("closeSW", handleProjectClosed);
+      window.removeEventListener("closeTD", handleProjectClosed);
+    };
+  }, []);
 
   // Scroll lock effect based on expanded state
   useEffect(() => {
@@ -76,7 +117,7 @@ export default function Calendar() {
 
   useEffect(() => {
     const handleWheel = (event) => {
-      if (canRotate && !isExpanded) {
+      if (canRotate && !isExpanded && !open) {
         const direction = event.deltaY < 0 ? "up" : "down";
         setRotation(direction);
 
@@ -102,7 +143,7 @@ export default function Calendar() {
         window.removeEventListener("wheel", handleWheel);
       };
     }
-  }, [canRotate, isExpanded]);
+  }, [canRotate, isExpanded, open]);
 
   return (
     <div className={styles.orbitCenter}>

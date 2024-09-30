@@ -9,6 +9,7 @@ export default function StopWatch() {
   const [rotation, setRotation] = useState("up");
   const [isHidden, setIsHidden] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const openSW = new CustomEvent("openSW");
   const closeSW = new CustomEvent("closeSW");
@@ -23,6 +24,46 @@ export default function StopWatch() {
       window.dispatchEvent(openSW);
     }
   };
+
+  useEffect(() => {
+    const handleProjectOpened = () => {
+      setIsHidden(true);
+      setIsButtonDisabled(true);
+      setOpen(true);
+    };
+
+    const handleProjectClosed = () => {
+      setIsHidden(false);
+      setIsButtonDisabled(false);
+      setOpen(false);
+    };
+
+    window.addEventListener("openTD", handleProjectOpened);
+    window.addEventListener("openCalc", handleProjectOpened);
+    window.addEventListener("openSR", handleProjectOpened);
+    window.addEventListener("openTD", handleProjectOpened);
+    window.addEventListener("openCalendar", handleProjectOpened);
+
+    window.addEventListener("closeTD", handleProjectClosed);
+    window.addEventListener("closeCalc", handleProjectClosed);
+    window.addEventListener("closeSR", handleProjectClosed);
+    window.addEventListener("closeTD", handleProjectClosed);
+    window.addEventListener("closeCalendar", handleProjectClosed);
+
+    return () => {
+      window.removeEventListener("openTD", handleProjectOpened);
+      window.removeEventListener("openCalc", handleProjectOpened);
+      window.removeEventListener("openSR", handleProjectOpened);
+      window.removeEventListener("openTD", handleProjectOpened);
+      window.removeEventListener("openCalendar", handleProjectOpened);
+
+      window.removeEventListener("closeTD", handleProjectClosed);
+      window.removeEventListener("closeCalc", handleProjectClosed);
+      window.removeEventListener("closeSR", handleProjectClosed);
+      window.removeEventListener("closeTD", handleProjectClosed);
+      window.removeEventListener("closeCalendar", handleProjectClosed);
+    };
+  }, []);
 
   useEffect(() => {
     if (isExpanded) {
@@ -76,7 +117,7 @@ export default function StopWatch() {
 
   useEffect(() => {
     const handleWheel = (event) => {
-      if (canRotate && !isExpanded) {
+      if (canRotate && !isExpanded && !open) {
         const direction = event.deltaY < 0 ? "up" : "down";
         setRotation(direction);
 
@@ -102,7 +143,7 @@ export default function StopWatch() {
         window.removeEventListener("wheel", handleWheel);
       };
     }
-  }, [canRotate, isExpanded]);
+  }, [canRotate, isExpanded, open]);
 
   return (
     <div className={styles.orbitCenter}>
