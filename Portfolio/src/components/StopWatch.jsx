@@ -20,12 +20,13 @@ export default function StopWatch() {
         setRotation(direction);
 
         setPosition((prevPosition) => {
-          // Adjust position based on scroll direction
           const newPosition =
             direction === "up"
               ? (prevPosition + 1) % 5
               : (prevPosition - 1 + 5) % 5;
-          console.log(position, rotation);
+          console.log(
+            `Prev: ${prevPosition}, New: ${newPosition}, Direction: ${direction}`
+          );
           return newPosition;
         });
 
@@ -42,6 +43,10 @@ export default function StopWatch() {
       window.removeEventListener("wheel", handleWheel);
     };
   }, [canRotate]);
+
+  useEffect(() => {
+    console.log("Current position:", position);
+  }, [position]);
 
   return (
     <div className={styles.orbitCenter}>

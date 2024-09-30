@@ -1,7 +1,8 @@
 .orbitCenter {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
 }
 
 .stopwatchContainer {
@@ -16,17 +17,15 @@
   box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2);
   transition: width 0.8s ease-in-out, height 0.8s ease-in-out,
     opacity 0.3s ease-in-out;
-  transform-origin: 10vw;
+  transform-origin: center;
 }
 
 .stopwatchContainer.expanded {
+  position: absolute;
   width: 100vw;
   height: 30vh;
+  top: 10%;
   opacity: 1;
-}
-
-.dimmed {
-  opacity: 0.5;
 }
 
 .stopwatchButton {
@@ -94,7 +93,7 @@
   }
 }
 
-@keyframes orbitPosition0down {
+@keyframes orbitPosition4down {
   0% {
     transform: rotate(1turn) translateX(-10vw);
   }
@@ -103,7 +102,7 @@
   }
 }
 
-@keyframes orbitPosition1down {
+@keyframes orbitPosition0down {
   0% {
     transform: rotate(0.07turn) translateX(-10vw);
   }
@@ -112,7 +111,7 @@
   }
 }
 
-@keyframes orbitPosition2down {
+@keyframes orbitPosition1down {
   0% {
     transform: rotate(0.4turn) translateX(-10vw);
   }
@@ -121,7 +120,7 @@
   }
 }
 
-@keyframes orbitPosition3down {
+@keyframes orbitPosition2down {
   0% {
     transform: rotate(0.6turn) translateX(-10vw);
   }
@@ -130,7 +129,7 @@
   }
 }
 
-@keyframes orbitPosition4down {
+@keyframes orbitPosition3down {
   0% {
     transform: rotate(0.93turn) translateX(-10vw);
   }
@@ -139,7 +138,6 @@
   }
 }
 
-/* Classes for each orbit position */
 .position0up {
   animation: orbitPosition0up 0.8s ease-in-out forwards;
 }
