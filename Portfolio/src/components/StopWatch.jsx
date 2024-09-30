@@ -3,7 +3,7 @@ import stopwatch from "../assets/stopwatch.jpg";
 import styles from "../styles/StopWatch.module.css";
 
 export default function StopWatch() {
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
   const [canRotate, setCanRotate] = useState(true);
   const [rotation, setRotation] = useState("up");
@@ -12,6 +12,19 @@ export default function StopWatch() {
     if (position !== 0) return;
     setIsExpanded((prevState) => !prevState);
   };
+
+  // Scroll lock effect based on expanded state
+  useEffect(() => {
+    if (isExpanded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isExpanded]);
 
   useEffect(() => {
     const handleWheel = (event) => {
@@ -24,9 +37,6 @@ export default function StopWatch() {
             direction === "up"
               ? (prevPosition + 1) % 5
               : (prevPosition - 1 + 5) % 5;
-          console.log(
-            `Prev: ${prevPosition}, New: ${newPosition}, Direction: ${direction}`
-          );
           return newPosition;
         });
 
@@ -44,16 +54,12 @@ export default function StopWatch() {
     };
   }, [canRotate]);
 
-  useEffect(() => {
-    console.log("Current position:", position);
-  }, [position]);
-
   return (
     <div className={styles.orbitCenter}>
       <div
         className={`${styles.stopwatchContainer} 
           ${styles[`position${position}${rotation}`]} 
-          ${isExpanded ? styles.expanded : styles.shrink}`}
+          ${isExpanded ? styles.expanded : ""}`}
       >
         <button
           className={styles.stopwatchButton}

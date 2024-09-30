@@ -31,7 +31,8 @@
   0% {
     width: 40vh;
     height: 25vh;
-    left: 50vw;
+
+    left: 40vw;
   }
   100% {
     position: absolute;
@@ -44,6 +45,7 @@
 
 @keyframes shrinkContainer {
   0% {
+    position: absolute;
     width: 110vw;
     height: 30vh;
     left: -1vw;
@@ -52,8 +54,8 @@
   100% {
     width: 40vh;
     height: 25vh;
-    left: 50vw;
-    top: 40%;
+
+    left: 40vw;
   }
 }
 
