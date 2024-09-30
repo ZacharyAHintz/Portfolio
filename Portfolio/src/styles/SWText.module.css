@@ -1,7 +1,7 @@
 :root {
   --bg-color: #fdeee7;
   --typewriterSpeed: 2s;
-  --typewriterCharacters: 9;
+
   --text-color: hsl(0, 0%, 0%);
 }
 
@@ -12,6 +12,9 @@ body {
   display: grid;
   text-align: center;
   background: var(--bg-color);
+}
+.title {
+  --typewriterCharacters: 9;
 }
 
 .container {

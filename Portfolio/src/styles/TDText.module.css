@@ -1,8 +1,7 @@
 :root {
   --bg-color: #fdeee7;
+  --text-color: hsl(210, 50%, 20%);
   --typewriterSpeed: 2s;
-
-  --text-color: hsl(0, 0%, 0%);
 }
 
 body {
@@ -13,13 +12,14 @@ body {
   text-align: center;
   background: var(--bg-color);
 }
-.title {
-  --typewriterCharacters: 23;
-}
 
 .container {
   position: relative;
   transition: transform 0.6s ease-in-out;
+}
+
+.title {
+  --typewriterCharacters: 10;
 }
 
 h1 {

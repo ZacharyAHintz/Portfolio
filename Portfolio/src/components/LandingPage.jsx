@@ -4,7 +4,7 @@ import styles from "../styles/LandingPage.module.css";
 import scroll from "../assets/scroll.png";
 import CalendarText from "./CalendarText";
 import CalcText from "./CalcText";
-import SRText from "./SRText"; // Ensure this is imported
+import SRText from "./SRText";
 import SWText from "./SWText";
 import TDText from "./TDText";
 
@@ -20,9 +20,16 @@ export default function LandingPage() {
     }, 1000);
   }
 
+  // Effect to handle wheel events
   useEffect(() => {
     const handleWheel = (event) => {
-      if (canRotate) {
+      // Prevent scrolling if a project is open
+      if (project) {
+        event.preventDefault();
+        return;
+      }
+
+      if (canRotate && !isSlidOut) {
         if (event.deltaY < 0) {
           setRotation((prevRotation) => prevRotation + 72);
         } else {
@@ -36,19 +43,20 @@ export default function LandingPage() {
       }
     };
 
-    window.addEventListener("wheel", handleWheel);
+    if (!isSlidOut) {
+      window.addEventListener("wheel", handleWheel, { passive: false });
 
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-    };
-  }, [canRotate]);
+      return () => {
+        window.removeEventListener("wheel", handleWheel);
+      };
+    }
+  }, [canRotate, project, isSlidOut]);
 
   useEffect(() => {
     const handleButtonClick = () => {
       setIsSlidOut(!isSlidOut);
     };
 
-    // Set up event listeners to open the respective text components
     const handleOpenCalendar = () => {
       setProject("Calendar");
       handleButtonClick();
@@ -74,7 +82,6 @@ export default function LandingPage() {
       handleButtonClick();
     };
 
-    // Set up event listeners to close the text components
     const handleCloseComponent = () => {
       handleClose();
       handleButtonClick();
@@ -92,6 +99,12 @@ export default function LandingPage() {
     window.addEventListener("closeSW", handleCloseComponent);
     window.addEventListener("closeCalendar", handleCloseComponent);
 
+    if (project) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
     return () => {
       window.removeEventListener("calendarExpanded", handleOpenCalendar);
       window.removeEventListener("openCalc", handleOpenCalc);
@@ -105,9 +118,8 @@ export default function LandingPage() {
       window.removeEventListener("closeSW", handleCloseComponent);
       window.removeEventListener("closeCalendar", handleCloseComponent);
     };
-  }, [isSlidOut]);
+  }, [isSlidOut, project]);
 
-  // Function to determine which component to render based on `project` value
   const renderComponent = () => {
     switch (project) {
       case "Calendar":
@@ -121,15 +133,26 @@ export default function LandingPage() {
       case "TD":
         return <TDText />;
       default:
-        return null; // No component rendered by default
+        return null;
     }
   };
 
   return (
     <div className={styles.landingPage}>
-      <div className={styles.textblock}>
-        {renderComponent()} {/* Render the selected project component */}
+      <div className={`${styles.title} ${isSlidOut ? styles.fadeOut : ""}`}>
+        Zachary A Hintz
       </div>
+
+      <div
+        className={`${styles.mptextblock} ${isSlidOut ? styles.fadeOut : ""}`}
+      >
+        This project represents my first significant exploration into CSS,
+        distinguishing it from my earlier projects where styling was kept to a
+        minimum. It has been a rewarding learning experience, and experimenting
+        with various techniques has been a lot of fun. I hope you enjoy the
+        outcome!
+      </div>
+      <div className={styles.textblock}>{renderComponent()}</div>
       <div
         className={`${styles.container} ${isSlidOut ? styles.slideOut : ""}`}
       >

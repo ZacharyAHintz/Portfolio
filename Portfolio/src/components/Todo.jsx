@@ -77,7 +77,7 @@ export default function Todo() {
 
   useEffect(() => {
     const handleWheel = (event) => {
-      if (canRotate) {
+      if (canRotate && !isExpanded) {
         const direction = event.deltaY < 0 ? "up" : "down";
         setRotation(direction);
 
@@ -96,12 +96,14 @@ export default function Todo() {
       }
     };
 
-    window.addEventListener("wheel", handleWheel);
+    if (!isExpanded) {
+      window.addEventListener("wheel", handleWheel);
 
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-    };
-  }, [canRotate]);
+      return () => {
+        window.removeEventListener("wheel", handleWheel);
+      };
+    }
+  }, [canRotate, isExpanded]);
 
   return (
     <div className={styles.orbitCenter}>
