@@ -57,7 +57,7 @@ export default function StopWatch() {
       }`}
       style={{
         opacity,
-        transform: `rotate(${rotation}deg) translate(650px) rotate(-${rotation}deg)`,
+        transform: `rotate(${rotation}deg) rotate(-${rotation}deg)`,
         transition: "transform 0.8s ease-in-out, opacity 0.3s ease-in-out",
       }}
     >
