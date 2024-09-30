@@ -1,77 +1,63 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import stopwatch from "../assets/stopwatch.jpg";
 import styles from "../styles/StopWatch.module.css";
 
 export default function StopWatch() {
-  const [rotation, setRotation] = useState(180);
+  const [position, setPosition] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
-  const myEvent = new Event("click");
-  const canRotateRef = useRef(true);
-  const rotationTimeoutRef = useRef(null);
+  const [canRotate, setCanRotate] = useState(true);
+  const [rotation, setRotation] = useState("up");
 
   const toggleExpand = () => {
-    if (rotation % 360 !== 180) return;
-
-    const newState = !isExpanded;
-    setIsExpanded(newState);
-    document.dispatchEvent(myEvent);
-  };
-
-  const handleWheel = (event) => {
-    if (canRotateRef.current) {
-      canRotateRef.current = false;
-
-      setRotation((prevRotation) => {
-        const newRotation = prevRotation + (event.deltaY < 0 ? 72 : -72);
-        return newRotation;
-      });
-
-      clearTimeout(rotationTimeoutRef.current);
-      rotationTimeoutRef.current = setTimeout(() => {
-        canRotateRef.current = true;
-      }, 800);
-    }
+    if (position !== 0) return;
+    setIsExpanded((prevState) => !prevState);
   };
 
   useEffect(() => {
+    const handleWheel = (event) => {
+      if (canRotate) {
+        const direction = event.deltaY < 0 ? "up" : "down";
+        setRotation(direction);
+
+        setPosition((prevPosition) => {
+          // Adjust position based on scroll direction
+          const newPosition =
+            direction === "up"
+              ? (prevPosition + 1) % 5
+              : (prevPosition - 1 + 5) % 5;
+          console.log(position, rotation);
+          return newPosition;
+        });
+
+        setCanRotate(false);
+        setTimeout(() => {
+          setCanRotate(true);
+        }, 800);
+      }
+    };
+
     window.addEventListener("wheel", handleWheel);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
-      clearTimeout(rotationTimeoutRef.current);
     };
-  }, []);
-
-  useEffect(() => {
-    if (rotation % 360 === 180) {
-      canRotateRef.current = true;
-    }
-  }, [rotation]);
-
-  const opacity = rotation % 360 === 180 ? 1 : 0.5;
+  }, [canRotate]);
 
   return (
-    <div
-      className={`${styles.stopwatchContainer} ${
-        isExpanded ? styles.expanded : ""
-      }`}
-      style={{
-        opacity,
-        transform: `rotate(${rotation}deg) rotate(-${rotation}deg)`,
-        transition: "transform 0.8s ease-in-out, opacity 0.3s ease-in-out",
-      }}
-    >
-      <button
-        className={styles.stopwatchButton}
-        onClick={toggleExpand}
-        disabled={rotation % 360 !== 180}
-        style={{
-          opacity,
-          transition: "opacity 0.3s ease-in-out",
-        }}
+    <div className={styles.orbitCenter}>
+      <div
+        className={`${styles.stopwatchContainer} 
+          ${styles[`position${position}${rotation}`]} 
+          ${isExpanded ? styles.expanded : ""}`}
       >
-        <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
-      </button>
+        <button
+          className={styles.stopwatchButton}
+          onClick={toggleExpand}
+          disabled={position !== 0}
+        >
+          <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
+        </button>
+      </div>
     </div>
   );
 }
