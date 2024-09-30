@@ -1,31 +1,60 @@
 .orbitCenter {
   position: absolute;
-  left: 50%;
   top: 40%;
-  transform: translate(-50%, -50%);
 }
 
 .stopwatchContainer {
   position: absolute;
   width: 40vh;
   height: 25vh;
+  left: 50vw;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border: 3px solid rgb(82, 82, 82);
   border-radius: 10px;
   box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.2);
-  transition: width 0.8s ease-in-out, height 0.8s ease-in-out,
-    opacity 0.3s ease-in-out;
-  transform-origin: center;
+  transition: opacity 0.3s ease-in-out;
+  transform-origin: 40vw;
 }
 
 .stopwatchContainer.expanded {
-  position: absolute;
-  width: 100vw;
-  height: 30vh;
-  top: 10%;
+  animation: expandContainer 0.8s ease-in-out forwards;
+  top: 0;
   opacity: 1;
+}
+.stopwatchContainer.shrink {
+  animation: shrinkContainer 0.8s ease-in-out forwards;
+  top: 0;
+  opacity: 1;
+}
+
+@keyframes expandContainer {
+  0% {
+    width: 40vh;
+    height: 25vh;
+    left: 50vw;
+  }
+  100% {
+    position: absolute;
+    width: 110vw;
+    height: 30vh;
+    left: -1vw;
+    top: -42vh;
+  }
+}
+
+@keyframes shrinkContainer {
+  0% {
+    width: 110vw;
+    height: 30vh;
+    left: -1vw;
+    top: -42vh;
+  }
+  100% {
+    width: 40vh;
+    height: 25vh;
+    left: 50vw;
+    top: 40%;
+  }
 }
 
 .stopwatchButton {

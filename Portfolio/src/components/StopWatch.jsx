@@ -53,7 +53,7 @@ export default function StopWatch() {
       <div
         className={`${styles.stopwatchContainer} 
           ${styles[`position${position}${rotation}`]} 
-          ${isExpanded ? styles.expanded : ""}`}
+          ${isExpanded ? styles.expanded : styles.shrink}`}
       >
         <button
           className={styles.stopwatchButton}
