@@ -13,6 +13,7 @@ export default function LandingPage() {
   const [canRotate, setCanRotate] = useState(true);
   const [isSlidOut, setIsSlidOut] = useState(false);
   const [project, setProject] = useState("");
+  const [transitioning, setTransitioning] = useState(false);
 
   function handleClose() {
     setTimeout(() => {
@@ -20,16 +21,16 @@ export default function LandingPage() {
     }, 1000);
   }
 
-  // Effect to handle wheel events
   useEffect(() => {
     const handleWheel = (event) => {
       // Prevent scrolling if a project is open
-      if (project) {
+      if (project || transitioning) {
         event.preventDefault();
         return;
       }
 
       if (canRotate && !isSlidOut) {
+        setTransitioning(true);
         if (event.deltaY < 0) {
           setRotation((prevRotation) => prevRotation + 72);
         } else {
@@ -39,6 +40,7 @@ export default function LandingPage() {
         setCanRotate(false);
         setTimeout(() => {
           setCanRotate(true);
+          setTransitioning(false);
         }, 800);
       }
     };
@@ -50,7 +52,7 @@ export default function LandingPage() {
         window.removeEventListener("wheel", handleWheel);
       };
     }
-  }, [canRotate, project, isSlidOut]);
+  }, [canRotate, project, isSlidOut, transitioning]);
 
   useEffect(() => {
     const handleButtonClick = () => {

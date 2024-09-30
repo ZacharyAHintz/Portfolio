@@ -32,8 +32,9 @@ export default function TDText() {
         A user-friendly application for managing tasks and to-do items.
       </h3>
       <h3 className={styles.subtitle}>
-        This project has significantly improved my skills in React and state
-        management.
+        This is an easy-to-use app for managing tasks and to-do lists. Working
+        on this project really helped me improve my React skills, especially
+        with handling state. It was a great learning experience overall.
       </h3>
     </div>
   );

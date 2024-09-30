@@ -32,8 +32,10 @@ export default function CalcText() {
         A simple and efficient tool for performing calculations.
       </h3>
       <h3 className={styles.subtitle}>
-        This project helped solidify my understanding of React and
-        component-based architecture.
+        This project is a straightforward tool for doing calculations. It really
+        helped me get a better grasp of React and how to build apps with
+        components. Overall, it was a great way to strengthen my skills and
+        learn more about React architecture.
       </h3>
     </div>
   );

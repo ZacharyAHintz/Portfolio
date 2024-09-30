@@ -32,8 +32,10 @@ export default function CalendarText() {
         A comprehensive tool for managing your events and schedules.
       </h3>
       <h3 className={styles.subtitle}>
-        This project has been instrumental in enhancing my skills in React and
-        state management.
+        I learned how to manage the component state and sync up user actions
+        with custom events, making everything run smoothly. I also got better at
+        working with layouts and making the calendar adjust nicely to different
+        screen sizes.
       </h3>
     </div>
   );

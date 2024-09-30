@@ -38,13 +38,11 @@ export default function Todo() {
       setOpen(false);
     };
 
-    window.addEventListener("openTD", handleProjectOpened);
     window.addEventListener("openCalc", handleProjectOpened);
     window.addEventListener("openSR", handleProjectOpened);
     window.addEventListener("openSW", handleProjectOpened);
     window.addEventListener("openCalendar", handleProjectOpened);
 
-    window.addEventListener("closeTD", handleProjectClosed);
     window.addEventListener("closeCalc", handleProjectClosed);
     window.addEventListener("closeSR", handleProjectClosed);
     window.addEventListener("closeSW", handleProjectClosed);

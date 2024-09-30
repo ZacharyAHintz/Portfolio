@@ -86,6 +86,7 @@
 .shadowrunContainer.expanded .shadowrun {
   transform: translateX(-50%);
   left: 10%;
+  z-index: 10;
 }
 
 .shadowrunContainer.dimmed {

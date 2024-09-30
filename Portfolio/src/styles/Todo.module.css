@@ -21,7 +21,9 @@
   animation: expandContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
+  z-index: 10;
 }
+
 .todoContainer.shrink {
   animation: shrinkContainer 0.8s ease-in-out forwards;
   top: 0;
@@ -36,7 +38,6 @@
   0% {
     width: 40vh;
     height: 25vh;
-
     left: 40vw;
   }
   100% {
@@ -59,7 +60,6 @@
   100% {
     width: 40vh;
     height: 25vh;
-
     left: 40vw;
   }
 }
@@ -129,6 +129,7 @@
   }
 }
 
+/* Orbit Animation Keyframes */
 @keyframes orbitPosition0up {
   0% {
     transform: rotate(0.93turn) translateX(-10vw);
@@ -219,6 +220,7 @@
   }
 }
 
+/* Positioning Classes */
 .position0up {
   animation: orbitPosition0up 0.8s ease-in-out forwards;
 }
