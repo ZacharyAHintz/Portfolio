@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import stopwatch from "../assets/stopwatch.jpg";
-import styles from "../styles/StopWatch.module.css";
+import shadowrun from "../assets/shadowrun.png";
+import styles from "../styles/Shadowrun.module.css";
 
-export default function StopWatch() {
-  const [position, setPosition] = useState(1);
+export default function Shadowrun() {
+  const [position, setPosition] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [canRotate, setCanRotate] = useState(true);
   const [rotation, setRotation] = useState("up");
@@ -13,7 +13,6 @@ export default function StopWatch() {
     setIsExpanded((prevState) => !prevState);
   };
 
-  // Scroll lock effect based on expanded state
   useEffect(() => {
     if (isExpanded) {
       document.body.style.overflow = "hidden";
@@ -57,18 +56,17 @@ export default function StopWatch() {
   return (
     <div className={styles.orbitCenter}>
       <div
-        className={`${styles.stopwatchContainer} 
+        className={`${styles.shadowrunContainer} 
           ${styles[`position${position}${rotation}`]} 
-          ${isExpanded ? styles.expanded : ""}  ${
-          position !== 0 ? styles.dimmed : ""
-        }`}
+          ${isExpanded ? styles.expanded : ""} 
+          ${position !== 0 ? styles.dimmed : ""}`}
       >
         <button
-          className={styles.stopwatchButton}
+          className={styles.shadowrunButton}
           onClick={toggleExpand}
           disabled={position !== 0}
         >
-          <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
+          <img className={styles.shadowrun} src={shadowrun} alt="shadowrun" />
         </button>
       </div>
     </div>

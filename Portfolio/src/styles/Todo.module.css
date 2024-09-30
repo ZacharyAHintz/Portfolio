@@ -3,9 +3,9 @@
   top: 40%;
 }
 
-.stopwatchContainer {
+.todoContainer {
   position: absolute;
-  background-color: #f8f4f3;
+  background-color: #85a5c5;
   width: 40vh;
   height: 25vh;
   left: 50vw;
@@ -17,18 +17,18 @@
   transform-origin: 40vw;
 }
 
-.stopwatchContainer.expanded {
+.todoContainer.expanded {
   animation: expandContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
 }
-.stopwatchContainer.shrink {
+.todoContainer.shrink {
   animation: shrinkContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
 }
 
-.stopwatchContainer.dimmed {
+.todoContainer.dimmed {
   opacity: 0.5;
 }
 
@@ -64,7 +64,7 @@
   }
 }
 
-.stopwatchButton {
+.todoButton {
   border-radius: 10px;
   background: none;
   border: none;
@@ -77,7 +77,7 @@
   align-items: center;
 }
 
-.stopwatch {
+.todo {
   position: absolute;
   left: 10;
   width: auto;
@@ -87,7 +87,7 @@
   transition: transform 0.8s ease-in-out;
 }
 
-.stopwatchContainer.expanded .stopwatch {
+.todoContainer.expanded .todo {
   transform: translateX(-50%);
   left: 10%;
 }

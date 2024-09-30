@@ -3,9 +3,9 @@
   top: 40%;
 }
 
-.stopwatchContainer {
+.shadowrunContainer {
   position: absolute;
-  background-color: #f8f4f3;
+  background-color: rgb(59, 52, 57);
   width: 40vh;
   height: 25vh;
   left: 50vw;
@@ -17,19 +17,15 @@
   transform-origin: 40vw;
 }
 
-.stopwatchContainer.expanded {
+.shadowrunContainer.expanded {
   animation: expandContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
 }
-.stopwatchContainer.shrink {
+.shadowrunContainer.shrink {
   animation: shrinkContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
-}
-
-.stopwatchContainer.dimmed {
-  opacity: 0.5;
 }
 
 @keyframes expandContainer {
@@ -64,7 +60,7 @@
   }
 }
 
-.stopwatchButton {
+.shadowrunButton {
   border-radius: 10px;
   background: none;
   border: none;
@@ -77,7 +73,7 @@
   align-items: center;
 }
 
-.stopwatch {
+.shadowrun {
   position: absolute;
   left: 10;
   width: auto;
@@ -87,9 +83,13 @@
   transition: transform 0.8s ease-in-out;
 }
 
-.stopwatchContainer.expanded .stopwatch {
+.shadowrunContainer.expanded .shadowrun {
   transform: translateX(-50%);
   left: 10%;
+}
+
+.shadowrunContainer.dimmed {
+  opacity: 0.5;
 }
 
 @keyframes orbitPosition0up {

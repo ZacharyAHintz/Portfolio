@@ -1,16 +1,27 @@
 import { useState, useEffect } from "react";
-import stopwatch from "../assets/stopwatch.jpg";
-import styles from "../styles/StopWatch.module.css";
+import calendar from "../assets/calendar.jpg";
+import styles from "../styles/Calendar.module.css";
 
-export default function StopWatch() {
-  const [position, setPosition] = useState(1);
+export default function Calendar() {
+  const [position, setPosition] = useState(4);
   const [isExpanded, setIsExpanded] = useState(false);
   const [canRotate, setCanRotate] = useState(true);
   const [rotation, setRotation] = useState("up");
 
+  const openCalendar = new CustomEvent("calendarExpanded");
+  const closeCalendar = new CustomEvent("closeCalendar");
+
   const toggleExpand = () => {
     if (position !== 0) return;
     setIsExpanded((prevState) => !prevState);
+    if (isExpanded) {
+      window.dispatchEvent(closeCalendar);
+      console.log("closeCalendar");
+    }
+    if (!isExpanded) {
+      window.dispatchEvent(openCalendar);
+      console.log("calendarExpanded");
+    }
   };
 
   // Scroll lock effect based on expanded state
@@ -57,18 +68,18 @@ export default function StopWatch() {
   return (
     <div className={styles.orbitCenter}>
       <div
-        className={`${styles.stopwatchContainer} 
+        className={`${styles.calendarContainer} 
           ${styles[`position${position}${rotation}`]} 
           ${isExpanded ? styles.expanded : ""}  ${
           position !== 0 ? styles.dimmed : ""
         }`}
       >
         <button
-          className={styles.stopwatchButton}
+          className={styles.calendarButton}
           onClick={toggleExpand}
           disabled={position !== 0}
         >
-          <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
+          <img className={styles.calendar} src={calendar} alt="calendar" />
         </button>
       </div>
     </div>

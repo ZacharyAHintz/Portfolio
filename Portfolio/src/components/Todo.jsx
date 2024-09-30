@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import stopwatch from "../assets/stopwatch.jpg";
-import styles from "../styles/StopWatch.module.css";
+import todo from "../assets/to-doList.jpg";
+import styles from "../styles/Todo.module.css";
 
-export default function StopWatch() {
-  const [position, setPosition] = useState(1);
+export default function Todo() {
+  const [position, setPosition] = useState(3);
   const [isExpanded, setIsExpanded] = useState(false);
   const [canRotate, setCanRotate] = useState(true);
   const [rotation, setRotation] = useState("up");
@@ -57,18 +57,18 @@ export default function StopWatch() {
   return (
     <div className={styles.orbitCenter}>
       <div
-        className={`${styles.stopwatchContainer} 
+        className={`${styles.todoContainer} 
           ${styles[`position${position}${rotation}`]} 
           ${isExpanded ? styles.expanded : ""}  ${
           position !== 0 ? styles.dimmed : ""
         }`}
       >
         <button
-          className={styles.stopwatchButton}
+          className={styles.todoButton}
           onClick={toggleExpand}
           disabled={position !== 0}
         >
-          <img className={styles.stopwatch} src={stopwatch} alt="stopwatch" />
+          <img className={styles.todo} src={todo} alt="todo" />
         </button>
       </div>
     </div>

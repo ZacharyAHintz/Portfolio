@@ -3,9 +3,9 @@
   top: 40%;
 }
 
-.stopwatchContainer {
+.calculatorContainer {
   position: absolute;
-  background-color: #f8f4f3;
+  background-color: #fdeee7;
   width: 40vh;
   height: 25vh;
   left: 50vw;
@@ -17,18 +17,18 @@
   transform-origin: 40vw;
 }
 
-.stopwatchContainer.expanded {
+.calculatorContainer.expanded {
   animation: expandContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
 }
-.stopwatchContainer.shrink {
+.calculatorContainer.shrink {
   animation: shrinkContainer 0.8s ease-in-out forwards;
   top: 0;
   opacity: 1;
 }
 
-.stopwatchContainer.dimmed {
+.calculatorContainer.dimmed {
   opacity: 0.5;
 }
 
@@ -64,7 +64,7 @@
   }
 }
 
-.stopwatchButton {
+.calculatorButton {
   border-radius: 10px;
   background: none;
   border: none;
@@ -77,7 +77,7 @@
   align-items: center;
 }
 
-.stopwatch {
+.calculator {
   position: absolute;
   left: 10;
   width: auto;
@@ -87,7 +87,7 @@
   transition: transform 0.8s ease-in-out;
 }
 
-.stopwatchContainer.expanded .stopwatch {
+.calculatorContainer.expanded .calculator {
   transform: translateX(-50%);
   left: 10%;
 }
