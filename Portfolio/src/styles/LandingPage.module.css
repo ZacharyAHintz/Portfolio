@@ -40,3 +40,12 @@
 .toggleButton:hover {
   background-color: #555;
 }
+
+.textblock {
+  position: absolute;
+  color: rgb(59, 52, 57);
+  font-size: 1.5rem;
+  text-align: center;
+  top: 30vh;
+  left: 10%;
+}

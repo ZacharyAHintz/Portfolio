@@ -7,10 +7,21 @@ export default function Shadowrun() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [canRotate, setCanRotate] = useState(true);
   const [rotation, setRotation] = useState("up");
+  const [isHidden, setIsHidden] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const openSR = new CustomEvent("openSR");
+  const closeSR = new CustomEvent("closeSR");
 
   const toggleExpand = () => {
     if (position !== 0) return;
     setIsExpanded((prevState) => !prevState);
+    if (isExpanded) {
+      window.dispatchEvent(closeSR);
+    }
+    if (!isExpanded) {
+      window.dispatchEvent(openSR);
+    }
   };
 
   useEffect(() => {
@@ -24,6 +35,44 @@ export default function Shadowrun() {
       document.body.style.overflow = "";
     };
   }, [isExpanded]);
+
+  useEffect(() => {
+    const handleCalendarExpanded = () => {
+      console.log("Calendar expanded event triggered");
+      setIsHidden(true);
+      setIsButtonDisabled(true);
+    };
+
+    const handleCloseCalendar = () => {
+      console.log("Close calendar event triggered");
+      setIsHidden(false);
+      setIsButtonDisabled(false);
+    };
+
+    // Event listeners
+    window.addEventListener("calendarExpanded", handleCalendarExpanded);
+    window.addEventListener("openTD", handleCalendarExpanded);
+    window.addEventListener("openCalc", handleCalendarExpanded);
+    window.addEventListener("openSW", handleCalendarExpanded);
+
+    window.addEventListener("closeTD", handleCloseCalendar);
+    window.addEventListener("closeCalc", handleCloseCalendar);
+    window.addEventListener("closeSW", handleCloseCalendar);
+    window.addEventListener("closeCalendar", handleCloseCalendar);
+
+    return () => {
+      window.removeEventListener("calendarExpanded", handleCalendarExpanded);
+      window.removeEventListener("closeCalendar", handleCloseCalendar);
+      window.removeEventListener("closeSW", handleCloseCalendar);
+      window.removeEventListener("closeSR", handleCloseCalendar);
+      window.removeEventListener("closeCalc", handleCloseCalendar);
+      window.removeEventListener("closeTD", handleCloseCalendar);
+      window.removeEventListener("openSW", handleCalendarExpanded);
+      window.removeEventListener("openSR", handleCalendarExpanded);
+      window.removeEventListener("openCalc", handleCalendarExpanded);
+      window.removeEventListener("openTD", handleCalendarExpanded);
+    };
+  }, []);
 
   useEffect(() => {
     const handleWheel = (event) => {
@@ -57,14 +106,17 @@ export default function Shadowrun() {
     <div className={styles.orbitCenter}>
       <div
         className={`${styles.shadowrunContainer} 
-          ${styles[`position${position}${rotation}`]} 
-          ${isExpanded ? styles.expanded : ""} 
-          ${position !== 0 ? styles.dimmed : ""}`}
+       ${styles[`position${position}${rotation}`]} 
+       ${isExpanded ? styles.expanded : ""}  
+       ${isHidden ? styles.hidden : position !== 0 ? styles.dimmed : ""}  
+     `}
       >
         <button
-          className={styles.shadowrunButton}
+          className={`${styles.shadowrunButton} ${
+            isHidden ? styles.hidden : position !== 0 ? styles.dimmed : ""
+          }`}
           onClick={toggleExpand}
-          disabled={position !== 0}
+          disabled={isButtonDisabled || position !== 0}
         >
           <img className={styles.shadowrun} src={shadowrun} alt="shadowrun" />
         </button>

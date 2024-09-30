@@ -30,6 +30,7 @@
 
 .stopwatchContainer.dimmed {
   opacity: 0.5;
+  cursor: auto;
 }
 
 @keyframes expandContainer {
@@ -92,6 +93,44 @@
   left: 10%;
 }
 
+.hidden {
+  animation: moveToCenter 0.6s forwards;
+  opacity: 0;
+  cursor: auto;
+}
+
+.dimmed {
+  cursor: auto;
+}
+
+@keyframes moveToCenter {
+  0% {
+    top: calc(40%);
+    left: calc(50vw);
+    opacity: 0.5;
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes moveBack {
+  0% {
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+  }
+  100% {
+    top: calc(40%);
+    left: calc(50vw);
+    opacity: 0.5;
+  }
+}
+
+/* rotation css */
 @keyframes orbitPosition0up {
   0% {
     transform: rotate(0.93turn) translateX(-10vw);
