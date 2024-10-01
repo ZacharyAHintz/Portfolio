@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import calculator from "../assets/calculator.png";
+import calculator from "../assets/Calculator.png";
 import styles from "../styles/Calculator.module.css";
 
 export default function Calculator() {
