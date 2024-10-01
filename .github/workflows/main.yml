@@ -36,7 +36,7 @@ jobs:
           node-version: 20
           cache: "npm"
       - name: Install dependencies
-        run: cd Portfolio && npm ci
+        run: npm ci
       - name: Build
         run: cd Portfolio && npm run build
       - name: Setup Pages
