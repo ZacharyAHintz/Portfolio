@@ -1,3 +1,7 @@
+body {
+  overflow: hidden !important;
+}
+
 .container {
   border-radius: 20000px;
   background-color: rgb(250, 192, 192);
